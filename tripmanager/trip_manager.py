@@ -62,7 +62,7 @@ def on_intent(intent_request, session):
     elif intent_name == "AMAZON.HelpIntent":
         return get_welcome_response()
     elif intent_name == "GetPlaces":
-        return show_places(intent, userId)
+    	return show_places(intent, userId)
     else:
         raise ValueError("Invalid intent")
 
@@ -75,13 +75,13 @@ def on_session_ended(session_ended_request, session):
 # --------------- Functions that control the skill's behavior ------------------
 
 def show_places(intent, userId):
-    tripName = intent['slots']['tripName'].get('value')
-    cities = get_places(tripName)
-    speech_output = 'Sorry no trips present'
-    if cities:
-        speech_output = " You are visiting " + ' , '.join([x for x in cities]) + ' during your trip ' + tripName
-    reprompt_text = 'thanks'
-    return build_response({}, build_speechlet_response(
+	tripName = intent['slots']['tripName'].get('value')
+	cities = get_places(tripName)
+	speech_output = 'Sorry no trips present'
+	if cities:
+		speech_output = " You are visiting " + ' , '.join([x for x in cities]) + ' during your trip ' + tripName
+	reprompt_text = 'thanks'
+	return build_response({}, build_speechlet_response(
         "random", speech_output, reprompt_text, True))
 
 def add_trip(intent, userId):
@@ -199,6 +199,10 @@ def get_welcome_response():
     speech_output = speech_output
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
+
+
+def get_places(intent):
+	get_places
 
 # dynamo db interactions
 
